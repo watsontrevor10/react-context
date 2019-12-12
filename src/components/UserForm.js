@@ -4,19 +4,18 @@ import { UserConsumer, } from '../providers/UserProvider';
 
 class UserForm extends React.Component {
   state = {
-    username: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    seatPreference: '',
+    username: this.props.username,
+    firstName: this.props.firstName,
+    lastName: this.props.lastName,
+    email: this.props.email,
+    seatPreference: this.props.seatPreference,
   }
 
   handleChange = (e, { name, value, }) => this.setState({[name]: value}) 
 
   handleSubmit = (e) => {
     e.preventDefault()
-    const user = { ...this.state, }
-    this.props.updateUser(user)
+    this.props.updateUser(this.state)
   }
 
   render() {
@@ -47,8 +46,8 @@ class UserForm extends React.Component {
          />
          <Form.Input 
           label='Email'
-          type='email'
           name='email'
+          placeholder={email}
           value={email}
           onChange={this.handleChange}
          />
@@ -80,7 +79,7 @@ const ConnectedUserForm = (props) => {
           username={value.username}
           firstName={value.firstName}
           lastName={value.lastName}
-          emmail={value.emmail}
+          email={value.email}
           seatPreference={value.seatPreference}
           updateUser={value.updateUser}
         />
