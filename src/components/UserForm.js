@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, } from 'semantic-ui-react';
+import { UserConsumer, } from '../providers/UserProvider';
 
 class UserForm extends React.Component {
   state = {
@@ -10,13 +11,12 @@ class UserForm extends React.Component {
     seatPreference: '',
   }
 
-  handleChange = (e) => {
-    this.setState({[e.target.name]: e.target.value}) 
-  }
+  handleChange = (e, { name, value, }) => this.setState({[name]: value}) 
 
   handleSubmit = (e) => {
     e.preventDefault()
-
+    const user = { ...this.state, }
+    this.props.updateUser(user)
   }
 
   render() {
@@ -54,7 +54,7 @@ class UserForm extends React.Component {
          />
          <Form.Select 
           label='Seat Preference'
-          name='email'
+          name='seatPreference'
           options={seatOptions}
           value={seatPreference}
           onChange={this.handleChange}
@@ -71,4 +71,22 @@ const seatOptions = [
   {key: 'm', text: 'Middle', value: 'middle'},
 ]
 
-export default UserForm;
+const ConnectedUserForm = (props) => {
+  return (
+    <UserConsumer>
+      { value => (
+        <UserForm 
+          {...props}
+          username={value.username}
+          firstName={value.firstName}
+          lastName={value.lastName}
+          emmail={value.emmail}
+          seatPreference={value.seatPreference}
+          updateUser={value.updateUser}
+        />
+      )}
+    </UserConsumer>
+  )
+}
+
+export default ConnectedUserForm;

@@ -1,11 +1,11 @@
 import React from 'react';
 import UserView from './UserView';
-import UserForm from './UserForm';
+import ConnectedUserForm from './UserForm';
 
 const UserProfile = () => (
   <div>
     <UserView />
-    <UserForm />
+    <ConnectedUserForm />
   </div>
 )
 

@@ -1,20 +1,25 @@
 import React from 'react';
 import { Menu, } from 'semantic-ui-react';
 import { NavLink, } from 'react-router-dom';
+import { UserConsumer, } from '../providers/UserProvider';
 
 const Navbar = () => (
-  <Menu>
-    <NavLink to='/' >
-      <Menu.Item>
-        Home
-      </Menu.Item>
-    </NavLink>
-    <NavLink to='/user/profile' >
-      <Menu.Item>
-        userprofile(temp)
-      </Menu.Item>
-    </NavLink>
-  </Menu>
+  <UserConsumer>
+    { value => (
+      <Menu>
+        <NavLink to='/' >
+          <Menu.Item>
+            Home
+          </Menu.Item>
+        </NavLink>
+        <NavLink to='/user/profile' >
+          <Menu.Item>
+            { value.username }
+          </Menu.Item>
+        </NavLink>
+      </Menu>
+    )}
+  </UserConsumer>
 )
 
 export default Navbar;
